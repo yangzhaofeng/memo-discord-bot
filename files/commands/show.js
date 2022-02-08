@@ -1,11 +1,10 @@
 module.exports.set = {
-  name: "show", //名前
-  aliases: ["show"] //エイリアス
+  name: "show",
+  aliases: ["show"]
 };
 
-//コマンド内容
 module.exports.run = async (db, client, message) => {
-  const msg = await message.channel.send("メモを検索しています....");
+  const msg = await message.channel.send("Searching for memo....");
 
   const memo = message.content.split(" ");
   const memo_title = memo[1];
@@ -15,18 +14,18 @@ module.exports.run = async (db, client, message) => {
     [message.author.id, memo_title],
     (err, row) => {
       if (!row) {
-        msg.edit(`${memo_title}というタイトルのメモは存在しません。`);
+        msg.edit(`Title ${memo_title} does not exist.`);
       } else {
         const embed = {
-          title: "📝メモ",
+          title: "📝MEMO",
           color: 0xb8e986,
           fields: [
             {
-              name: "タイトル",
+              name: "Title",
               value: memo_title
             },
             {
-              name: "内容",
+              name: "Content",
               value: row.memo_content
             }
           ],

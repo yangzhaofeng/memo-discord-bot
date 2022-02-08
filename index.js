@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("memo.db");
+const db = new sqlite3.Database("db/memo.db");
 db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS memo(user_id STRING, user_name STRING, memo_title STRING, memo_content STRING);"
@@ -12,11 +12,11 @@ db.serialize(() => {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity("!m?|discha.net");
+  client.user.setActivity(".m?|memo-bot");
 });
 
 const command = require("./files/command.js");
-const prefix = "!m";
+const prefix = ".m";
 
 client.on("message", message => {
   if (message.author.bot || !message.guild) return;

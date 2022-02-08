@@ -1,19 +1,18 @@
 module.exports.set = {
-  name: "rm", //名前
-  aliases: ["rm"] //エイリアス
+  name: "rm",
+  aliases: ["rm"]
 };
 
-//コマンド内容
 module.exports.run = async (db, client, message) => {
   const responseMessage = await message.channel.send(
-    "メモを削除できるか確認しています..."
+    "Checking whether the memo can be deleted..."
   );
 
   const memo = message.content.split(" ");
   const memo_title = memo[1];
   if (memo.length < 2) {
     responseMessage.edit(
-      "正しく入力してください。\n正しくは`!mrm [タイトル]`です。"
+      "Input error!\nCommand is `.mrm <title>`."
     );
     return;
   }
@@ -23,7 +22,7 @@ module.exports.run = async (db, client, message) => {
     (err, row) => {
       if (err) return;
       if (!row) {
-        responseMessage.edit(`${memo_title}というタイトルのメモは存在しません`);
+        responseMessage.edit(`Title ${memo_title} does not exist.`);
         return;
       }
       db.get(
@@ -33,9 +32,9 @@ module.exports.run = async (db, client, message) => {
           if (err) return;
 
           const embed = {
-            title: "メモを削除しました",
+            title: "Memo deleted",
             color: 0xd0021b,
-            fields: [{ name: "タイトル", value: memo_title }],
+            fields: [{ name: "Title", value: memo_title }],
             footer: {
               icon_url: message.author.avatarURL,
               text: message.author.tag

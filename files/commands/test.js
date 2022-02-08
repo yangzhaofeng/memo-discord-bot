@@ -1,9 +1,8 @@
 module.exports.set = {
-  name: "test", //名前
-  aliases: ["test"] //エイリアス
+  name: "test",
+  aliases: ["test"]
 };
 
-//コマンド内容
 module.exports.run = (db, client, message) => {
-  message.channel.send("テストです");
+  message.channel.send("This is a test");
 };

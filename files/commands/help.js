@@ -1,33 +1,32 @@
 module.exports.set = {
-  name: "help", //名前
-  aliases: ["?", "help"] //エイリアス
+  name: "help",
+  aliases: ["?", "help"]
 };
 
-//コマンド内容
 module.exports.run = (db, client, message) => {
   const embed = {
-    title: "コマンド一覧",
+    title: "Commands",
     color: 0xf5a623,
     fields: [
       {
-        name: "!m [タイトル]",
-        value: "メモを表示します"
+        name: ".m <title>",
+        value: "Show memo"
       },
       {
-        name: "!madd [タイトル] [内容]",
-        value: "メモを書き込みます"
+        name: ".madd <title> <content>",
+        value: "Write memo"
       },
       {
-        name: "!mrm [タイトル]",
-        value: "メモを削除します"
+        name: ".mrm <title>",
+        value: "Delete memo"
       },
       {
-        name: "!mlist",
-        value: "メモの一覧を表示します"
+        name: ".mlist",
+        value: "List all memo"
       },
       {
-        name: "!m?",
-        value: "ヘルプを表示します"
+        name: ".m?",
+        value: "Show help message"
       }
     ],
     footer: {

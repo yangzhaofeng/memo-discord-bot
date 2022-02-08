@@ -1,6 +1,6 @@
 module.exports.set = {
-  name: "add", //名前
-  aliases: ["add"] //エイリアス
+  name: "add",
+  aliases: ["add"]
 };
 
 const insert = (db, message, memo_title, memo_content, responseMessage) =>
@@ -10,11 +10,11 @@ const insert = (db, message, memo_title, memo_content, responseMessage) =>
     err => {
       if (err) return; // TODO
       const embed = {
-        title: "メモを追加しました",
+        title: "memo added",
         color: 0x4a90e2,
         fields: [
-          { name: "タイトル", value: memo_title },
-          { name: "内容", value: memo_content }
+          { name: "Title", value: memo_title },
+          { name: "Content", value: memo_content }
         ],
         footer: {
           icon_url: message.author.avatarURL,
@@ -28,13 +28,13 @@ const insert = (db, message, memo_title, memo_content, responseMessage) =>
 //コマンド内容
 module.exports.run = async (db, client, message) => {
   const responseMessage = await message.channel.send(
-    "メモの書き込み確認をしています..."
+    "Checking for memo..."
   );
   const memo = message.content.split(" ");
 
   if (memo.length < 3) {
     responseMessage.edit(
-      "正しく入力してください。\nメモを追加するには`!madd [タイトル] [内容]`です。"
+      "Error!\nPlease use `.madd <title> <content>` to add memo."
     );
     return;
   }
@@ -42,7 +42,7 @@ module.exports.run = async (db, client, message) => {
   const memo_title = memo[1];
   if (memo_title.length > 10) {
     responseMessage.edit(
-      "タイトルが長すぎます。\n10文字以内に変更してください。"
+      "Title is too long.\n10 characters limited."
     );
     return;
   }
@@ -50,7 +50,7 @@ module.exports.run = async (db, client, message) => {
   const memo_content = memo.slice(2).join(" ");
   if (memo_content.length > 1000) {
     responseMessage.edit(
-      "内容が長すぎます。\n1000文字以内に変更してください。"
+      "Content is too long.\n1000 characters limited."
     );
     return;
   }
@@ -62,7 +62,7 @@ module.exports.run = async (db, client, message) => {
       if (err) return; // TODO
       if (row[0] >= 100) {
         responseMessage.edit(
-          "メモが多すぎます。(100個)\n不要なメモを削除してください。"
+          "Your memo amount has reached the limit (100).\nPlease delete unnecessary memo."
         );
         return;
       }
@@ -74,7 +74,7 @@ module.exports.run = async (db, client, message) => {
           if (err) return; // TODO
           if (row) {
             responseMessage.edit(
-              "同じタイトルのメモが登録されています。\n削除してもう一度登録してください。"
+              "Memo of same title already exists.\nYou can delete the old one before re-adding."
             );
             return;
           }

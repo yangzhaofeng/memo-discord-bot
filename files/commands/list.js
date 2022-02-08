@@ -1,11 +1,10 @@
 module.exports.set = {
-  name: "list", //名前
-  aliases: ["list", "li"] //エイリアス
+  name: "list",
+  aliases: ["list", "li"]
 };
 
-//コマンド内容
 module.exports.run = async (db, client, message) => {
-  const msg = await message.channel.send("メモを取得しています....");
+  const msg = await message.channel.send("Getting memo list....");
 
   db.all(
     "SELECT * FROM memo WHERE user_id=?;",
@@ -16,7 +15,7 @@ module.exports.run = async (db, client, message) => {
         memos += `${memo.memo_title}\n`;
       }
       const embed = {
-        title: "メモ一覧",
+        title: "All memo",
         color: 0xf8e71c,
         description: memos,
         footer: {
